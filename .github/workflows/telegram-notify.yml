@@ -21,15 +21,15 @@ jobs:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           message: |
-            🚀 GitHub Notification 🚀
+            🚀 **GitHub Notification** 🚀
 
-            ${{ github.actor }} created commit:
+            **${{ github.actor }}** created commit:
 
-            Repository: ${{ github.repository }}
-            Event: ${{ github.event_name }}
+            Repository: **${{ github.repository }}**
+            Event: **${{ github.event_name }}**
 
-            Commit by: ${{ github.actor }}
-            Commit message: ${{ github.event.head_commit.message }}
+            Commit by: **${{ github.actor }}**
+            Commit message: **${{ github.event.head_commit.message }}**
 
             [View Commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-          format: Markdown
+          format: markdown
