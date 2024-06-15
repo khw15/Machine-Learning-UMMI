@@ -1,19 +1,12 @@
 name: Telegram Notification
 
-on:
-  push:
-    branches:
-      - main  # Replace with your branch name
-  pull_request:
-    types: [opened, closed, reopened]
+on: [push, pull_request, pull_request_review, pull_request_review_comment]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Telegram Notify
         uses: appleboy/telegram-action@v0.1.1
