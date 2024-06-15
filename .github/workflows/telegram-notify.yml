@@ -24,9 +24,9 @@ jobs:
         id: set_message
         run: |
           if [[ "${{ github.event_name }}" == 'push' ]]; then
-            echo "::set-output name=message::<b>🚀 GitHub Push Notification 🚀</b><br><br><b>${{ github.actor }}</b> pushed to <b>${{ github.ref }}</b> branch.<br><br>Repository: <b>${{ github.repository }}</b><br>Event: <b>${{ github.event_name }}</b><br><br><a href=\"https://github.com/${{ github.repository }}/commit/${{ github.sha }}\">See changes</a>"
+            echo "::set-output name=message::🚀 *GitHub Push Notification* 🚀\n\n*${{ github.actor }}* pushed to *${{ github.ref }}* branch.\n\nRepository: *${{ github.repository }}*\nEvent: *${{ github.event_name }}*\n\n[See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
           elif [[ "${{ github.event_name }}" == 'pull_request' ]]; then
-            echo "::set-output name=message::<b>🔃 GitHub Pull Request Notification 🔃</b><br><br><b>${{ github.actor }}</b> ${{ github.event.action }} pull request on <b>${{ github.ref }}</b> branch.<br><br>Repository: <b>${{ github.repository }}</b><br>Event: <b>${{ github.event_name }}</b><br><br><a href=\"https://github.com/${{ github.repository }}/pull/${{ github.event.number }}\">See pull request</a>"
+            echo "::set-output name=message::🔃 *GitHub Pull Request Notification* 🔃\n\n*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.\n\nRepository: *${{ github.repository }}*\nEvent: *${{ github.event_name }}*\n\n[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
           fi
 
       - name: Telegram Notify
@@ -35,5 +35,5 @@ jobs:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           message: ${{ steps.set_message.outputs.message }}
-          format: html
+          format: markdown
           disable_web_page_preview: true
