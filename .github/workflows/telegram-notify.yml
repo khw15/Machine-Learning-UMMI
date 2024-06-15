@@ -33,3 +33,4 @@ jobs:
 
             [View Commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
           format: Markdown
+          disable_web_page_preview : true
