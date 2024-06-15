@@ -16,10 +16,9 @@ jobs:
           message: |
             🚀 *GitHub Notification* 🚀
 
-            *${{ github.actor }}* created commit:
+            *${{ github.actor }}* triggered a *${{ github.event_name }}* event.
 
             Repository: *${{ github.repository }}*
-            Event: *${{ github.event_name }}*
 
             Commit by: *${{ github.actor }}*
             Commit message: *${{ github.event.head_commit.message }}*
