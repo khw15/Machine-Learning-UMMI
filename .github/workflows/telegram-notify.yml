@@ -20,23 +20,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Message Content
+        id: set_message
+        run: |
+          if [[ "${{ github.event_name }}" == 'push' ]]; then
+            echo "::set-output name=message::🚀 *GitHub Push Notification* 🚀\n\n*${{ github.actor }}* pushed to *${{ github.ref }}* branch.\n\nRepository: *${{ github.repository }}*\nEvent: *${{ github.event_name }}*\n\n[See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
+          elif [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            echo "::set-output name=message::🔃 *GitHub Pull Request Notification* 🔃\n\n*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.\n\nRepository: *${{ github.repository }}*\nEvent: *${{ github.event_name }}*\n\n[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
+          fi
 
       - name: Telegram Notify
         uses: appleboy/telegram-action@v0.1.1
         with:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          message: |
-            🚀 *GitHub Notification* 🚀
-
-            *${{ github.actor }}* triggered a *${{ github.event_name }}* event.
-
-            Repository: *${{ github.repository }}*
-            Event: *${{ github.event_name }}*
-
-            Commit by: *${{ github.actor }}*
-            Commit message: *${{ github.event.head_commit.message }}*
-
-            [See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+          message: ${{ steps.set_message.outputs.message }}
           format: markdown
           disable_web_page_preview: true
