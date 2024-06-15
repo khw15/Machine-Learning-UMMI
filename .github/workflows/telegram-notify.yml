@@ -19,9 +19,11 @@ jobs:
             *${{ github.actor }}* triggered a *${{ github.event_name }}* event.
 
             Repository: *${{ github.repository }}*
+            Event: *${{ github.event_name }}*
 
             Commit by: *${{ github.actor }}*
             Commit message: *${{ github.event.head_commit.message }}*
 
             [See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
           format: markdown
+          disable_web_page_preview: true
