@@ -14,6 +14,11 @@ on:
       - closed
       - ready_for_review
       - labeled
+  pull_request_comment:
+    types:
+      - created
+      - edited
+      - deleted
 
 jobs:
   notify:
@@ -27,6 +32,8 @@ jobs:
             echo "::set-output name=message::🚀 *GitHub Push Notification* 🚀%0A%0A*${{ github.actor }}* pushed to *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
           elif [[ "${{ github.event_name }}" == 'pull_request' ]]; then
             echo "::set-output name=message::🔃 *GitHub Pull Request Notification* 🔃%0A%0A*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
+          elif [[ "${{ github.event_name }}" == 'pull_request_comment' ]]; then
+            echo "::set-output name=message::💬 *GitHub Pull Request Comment Notification* 💬%0A%0A*${{ github.actor }}* ${{ github.event.action }} a comment on a pull request.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See comment](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/files#diff-${{ github.event.comment.diff_hunk }})"
           fi
 
       - name: Telegram Notify
