@@ -29,11 +29,11 @@ jobs:
         id: set_message
         run: |
           if [[ "${{ github.event_name }}" == 'push' ]]; then
-            echo "message=🚀 *GitHub Push Notification* 🚀%0A%0A*${{ github.actor }}* pushed to *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0ACommit message: *${{ github.event.head_commit.message }}*%0A%0A[See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})" >> $GITHUB_OUTPUT
+            echo "::set-output name=message::🚀 *GitHub Push Notification* 🚀%0A%0A*${{ github.actor }}* pushed to *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0ACommit message: *${{ github.event.head_commit.message }}*%0A%0A[See changes](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
           elif [[ "${{ github.event_name }}" == 'pull_request' ]]; then
-            echo "message=🔃 *GitHub Pull Request Notification* 🔃%0A%0A*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0A%0A[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})" >> $GITHUB_OUTPUT
+            echo "::set-output name=message::🔃 *GitHub Pull Request Notification* 🔃%0A%0A*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0A%0A[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
           elif [[ "${{ github.event_name }}" == 'issue_comment' ]]; then
-            echo "message=💬 *GitHub Pull Request Comment Notification* 💬%0A%0A*${{ github.actor }}* ${{ github.event.action }} a comment on a pull request.%0A%0ARepository: *${{ github.repository }}*%0A%0A[See comment](https://github.com/${{ github.repository }}/pull/${{ github.event.issue.number }}#issuecomment-${{ github.event.comment.id }})" >> $GITHUB_OUTPUT
+            echo "::set-output name=message::💬 *GitHub Pull Request Comment Notification* 💬%0A%0A*${{ github.actor }}* ${{ github.event.action }} a comment on a pull request.%0A%0ARepository: *${{ github.repository }}*%0A%0A[See comment](https://github.com/${{ github.repository }}/pull/${{ github.event.issue.number }}#issuecomment-${{ github.event.comment.id }})"
           fi
 
       - name: Telegram Notify
