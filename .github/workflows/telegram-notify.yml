@@ -33,7 +33,7 @@ jobs:
           elif [[ "${{ github.event_name }}" == 'pull_request' ]]; then
             echo "::set-output name=message::🔃 *GitHub Pull Request Notification* 🔃%0A%0A*${{ github.actor }}* ${{ github.event.action }} pull request on *${{ github.ref }}* branch.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See pull request](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
           elif [[ "${{ github.event_name }}" == 'issue_comment' ]]; then
-            echo "::set-output name=message::💬 *GitHub Pull Request Comment Notification* 💬%0A%0A*${{ github.actor }}* ${{ github.event.action }} a comment on a pull request.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See comment](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }})"
+            echo "::set-output name=message::💬 *GitHub Pull Request Comment Notification* 💬%0A%0A*${{ github.actor }}* ${{ github.event.action }} a comment on a pull request.%0A%0ARepository: *${{ github.repository }}*%0AEvent: *${{ github.event_name }}*%0A%0A[See comment](https://github.com/${{ github.repository }}/pull/${{ github.event.number }})"
           fi
 
       - name: Telegram Notify
